@@ -1,13 +1,15 @@
 <?php
 require_once __DIR__ . "/../config/database.php";
+
 function getCategories()
 {
   global $pdo;
-  $query = "select * from categories";
-  $stnt = $pdo->prepare($query);
-  $stnt->execute();
 
-  $categories =  $stnt->fetchAll();
+  $query = "select * from categories";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute();
+
+  $categories = $stmt->fetchAll();
 
   return $categories;
 }
@@ -15,8 +17,8 @@ function getCategories()
 function getCategory()
 {
   $category = [
-    "id"          => 1,
-    "name"        => "Fiksi",
+    "id" => 1,
+    "name" => "Fiksi",
     "description" => "Novel dan cerita rekaan",
   ];
 
@@ -25,16 +27,16 @@ function getCategory()
 
 function isCategoryExists($categoryId)
 {
-    global $pdo;
+  global $pdo;
 
-    $query = "select count(id) from categories where id = :category_id";
+  $query = "select count(id) from categories where id = :category_id";
 
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([
-        'category_id' => $categoryId
-    ]);
+  $stmt = $pdo->prepare($query);
+  $stmt->execute([
+    'category_id' => $categoryId
+  ]);
 
-    $isCategoryExists = $stmt->fetchColumn() > 0;
+  $isCategoryExists = $stmt->fetchColumn() > 0;
 
-    return $isCategoryExists;
+  return $isCategoryExists;
 }

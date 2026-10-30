@@ -10,13 +10,6 @@ if (isset($_POST['login']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors = validateLogin($request);
 
 
-
-
-
-
-
-
-
         if (count($errors) === 0) {
             $user = getUserByEmail($request['email']);
             if (!$user && !password_verify($request['password'], $user['password'])) {
